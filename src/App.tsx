@@ -7,7 +7,9 @@ function App() {
     <div>
       <div className="main-body">
         <Header />
-        <WeatherSearch />
+        <div className="wrapper-main">
+          <WeatherSearch />
+        </div>
       </div>
     </div>
   );
