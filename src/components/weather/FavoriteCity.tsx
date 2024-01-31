@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { WiStrongWind } from "react-icons/wi";
+import { WiCloud, WiDaySunny } from "react-icons/wi";
 import { FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import {
@@ -50,6 +50,8 @@ const FavoriteCity: React.FC = () => {
     }
   };
 
+  console.log(favoriteData,"FavoriteData");
+
   useEffect(() => {
     fetchFavoriteCitiesData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,7 +74,7 @@ const FavoriteCity: React.FC = () => {
                   <FaTrash />
                 </div>
                 <div className="favorites-city-weather-icon">
-                  <WiStrongWind />
+                   {data?.weather && data?.weather[0]?.main === "Clouds" ? <WiCloud /> : <WiDaySunny />} 
                 </div>
                 <div className="favorites-city-weather-condition">
                   {data?.weather[0]?.main}
