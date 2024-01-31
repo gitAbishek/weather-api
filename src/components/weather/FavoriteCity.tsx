@@ -11,16 +11,27 @@ import { getCityCurrentWeatherData } from "../../services/weather.service";
 import { kelvinToCelsius } from "../../helper/kelvinToCelsius";
 import { useContextStore } from "../../context/context.consumer";
 
+interface FavDataCity {
+  name: string;
+  coord: FavCity;
+  weather : {
+    main: string;
+  }[];
+  main: {
+    temp_min: number;
+    temp_max: number;
+  }
+}
+
 const FavoriteCity: React.FC = () => {
   const {isAdded} = useContextStore();
-  const [favoriteData, setFavoriteData] = useState<any[]>([]);
+  const [favoriteData, setFavoriteData] = useState<FavDataCity[]>([]);
   const favoriteCitiesList = getFavoriteCitiesDataFromStorage() || [];
   const [update, setUpdate] = useState<boolean>(false);
 
-
   const fetchFavoriteCitiesData = async () => {
     try {
-      const storeData: Promise<FavCity>[] = favoriteCitiesList.map((data: FavCity) =>
+      const storeData: Promise<FavDataCity>[] = favoriteCitiesList.map((data: FavCity) =>
         getCityCurrentWeatherData({ lat: data.lat, lon: data.lon })
       );
 
@@ -50,7 +61,7 @@ const FavoriteCity: React.FC = () => {
         <div className="title">Favorite Cities</div>
 
         <div className="favorites-city-wrapper-outside">
-          {favoriteData.map((data: any) => (
+          {favoriteData.map((data: FavDataCity) => (
             <div className="favorites-city-wrapper-main" key={data?.name}>
               <div className="favorites-city-wrapper">
                 <div className="favorites-city">{data?.name}</div>
