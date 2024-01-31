@@ -62,7 +62,7 @@ const CurrentWeather = ({ currentWeatherData }: ExtendedWeatherDataProps) => {
                 <div className="weather-main-icon">
                   {currentWeatherData && currentWeatherData?.weather && currentWeatherData?.weather[0]?.main === "Clouds" ? <WiCloud /> : <WiDaySunny />}
                 </div>
-                <div className="degree">{temperature?.toFixed(2)}&deg;</div>
+                <div className="degree">{(temperature || 0)?.toFixed(2)}&deg;</div>
               </div>
 
               <div className="weather-condition">

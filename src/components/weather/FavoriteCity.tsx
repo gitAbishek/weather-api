@@ -14,26 +14,26 @@ import { useContextStore } from "../../context/context.consumer";
 interface FavDataCity {
   name: string;
   coord: FavCity;
-  weather : {
+  weather: {
     main: string;
   }[];
   main: {
     temp_min: number;
     temp_max: number;
-  }
+  };
 }
 
 const FavoriteCity: React.FC = () => {
-  const {isAdded} = useContextStore();
+  const { isAdded } = useContextStore();
   const [favoriteData, setFavoriteData] = useState<FavDataCity[]>([]);
   const favoriteCitiesList = getFavoriteCitiesDataFromStorage() || [];
   const [update, setUpdate] = useState<boolean>(false);
 
-
   const fetchFavoriteCitiesData = async () => {
     try {
-      const storeData: Promise<FavDataCity>[] = favoriteCitiesList.map((data: FavCity) =>
-        getCityCurrentWeatherData({ lat: data.lat, lon: data.lon })
+      const storeData: Promise<FavDataCity>[] = favoriteCitiesList.map(
+        (data: FavCity) =>
+          getCityCurrentWeatherData({ lat: data.lat, lon: data.lon })
       );
 
       const favCitiesData = await Promise.all(storeData);
@@ -47,14 +47,14 @@ const FavoriteCity: React.FC = () => {
     const removedData = removeCityFromFavorite(data);
     toast.success(removedData?.msg);
     if (removedData) {
-      setUpdate((prev)=> !prev);
+      setUpdate((prev) => !prev);
     }
   };
 
   useEffect(() => {
     fetchFavoriteCitiesData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update,isAdded,]);
+  }, [update, isAdded]);
 
   return (
     favoriteData && (
@@ -73,7 +73,11 @@ const FavoriteCity: React.FC = () => {
                   <FaTrash />
                 </div>
                 <div className="favorites-city-weather-icon">
-                   {data?.weather && data?.weather[0]?.main === "Clouds" ? <WiCloud /> : <WiDaySunny />} 
+                  {data?.weather && data?.weather[0]?.main === "Clouds" ? (
+                    <WiCloud />
+                  ) : (
+                    <WiDaySunny />
+                  )}
                 </div>
                 <div className="favorites-city-weather-condition">
                   {data?.weather[0]?.main}
@@ -87,7 +91,7 @@ const FavoriteCity: React.FC = () => {
           ))}
         </div>
       </div>
-    ) 
+    )
   );
 };
 

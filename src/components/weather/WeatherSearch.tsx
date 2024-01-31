@@ -18,6 +18,10 @@ import { formatForeCastData } from "../../helper/transformer";
 import ExtendedForeCast from "./ExtendedForeCast";
 import FavoriteCity from "./FavoriteCity";
 
+interface CustomError extends Error {
+  message: string;
+}
+
 const WeatherSearch = () => {
   const methods = useForm();
 
@@ -50,13 +54,15 @@ const WeatherSearch = () => {
       const fiveDayForeCastData = formatForeCastData(foreCastData?.list || []);
       setWeatherForeCastData(fiveDayForeCastData);
     } catch (error) {
+      const customError: CustomError = error as CustomError;
+      toast.error(customError?.message || "An unknown error has occurred");
       return;
     }
   };
 
   useEffect(() => {
     onSubmit({ search: "kathmandu" });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
