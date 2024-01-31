@@ -40,7 +40,7 @@ const CurrentWeather = ({ currentWeatherData }: ExtendedWeatherDataProps) => {
   const handleAddFavorite = () => {
     const fav = addCityToFavorite(currentWeatherData.coord)
     toast.success(fav.msg);
-    setIsAdded(true);
+    setIsAdded((prev)=> !prev);
   }
 
   return (

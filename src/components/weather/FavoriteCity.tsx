@@ -29,6 +29,7 @@ const FavoriteCity: React.FC = () => {
   const favoriteCitiesList = getFavoriteCitiesDataFromStorage() || [];
   const [update, setUpdate] = useState<boolean>(false);
 
+
   const fetchFavoriteCitiesData = async () => {
     try {
       const storeData: Promise<FavDataCity>[] = favoriteCitiesList.map((data: FavCity) =>
@@ -46,14 +47,14 @@ const FavoriteCity: React.FC = () => {
     const removedData = removeCityFromFavorite(data);
     toast.success(removedData?.msg);
     if (removedData) {
-      setUpdate(true);
+      setUpdate((prev)=> !prev);
     }
   };
 
   useEffect(() => {
     fetchFavoriteCitiesData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update,isAdded]);
+  }, [update,isAdded,]);
 
   return (
     favoriteData && (
@@ -86,7 +87,7 @@ const FavoriteCity: React.FC = () => {
           ))}
         </div>
       </div>
-    )
+    ) 
   );
 };
 

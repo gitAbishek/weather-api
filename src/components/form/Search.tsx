@@ -12,7 +12,7 @@ const Search: React.FC = () => {
       <input
         className="search-input"
         {...register("search")}
-        placeholder="Kathmandu"
+        placeholder="city"
         autoComplete="off"
       />
     </div>

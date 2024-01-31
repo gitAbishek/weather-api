@@ -81,7 +81,6 @@ body {
     height: 40px;
     border-radius: 20px;
     background: none !important;
-    
   }
 
   .search-input input:focus {
@@ -116,10 +115,18 @@ body {
     }
 
     .icon {
+      position: relative;
       color: #a0a8ad;
-
-      
+      cursor: pointer;
+      font-size: x-large;
+    
+     
+    
+      &:hover {
+        color: red;
+      }
     }
+    
   }
 
   .current-weather-wrapper-inside {
