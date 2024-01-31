@@ -50,8 +50,6 @@ const FavoriteCity: React.FC = () => {
     }
   };
 
-  console.log(favoriteData,"FavoriteData");
-
   useEffect(() => {
     fetchFavoriteCitiesData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
