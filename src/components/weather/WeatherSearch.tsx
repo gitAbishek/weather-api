@@ -4,10 +4,10 @@ import {
   FieldValues,
   FormProvider,
 } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import Search from "../form/Search";
 import CurrentWeather, { ExtendedWeatherDataProps } from "./CurrentWeather";
-import ExtendedWeatherForecast from "./ExtendedWeather";
 import {
   getCityCurrentWeatherData,
   getCityLatitudeLongitude,
@@ -15,7 +15,8 @@ import {
 } from "../../services/weather.service";
 import { useEffect, useState } from "react";
 import { formatForeCastData } from "../../helper/transformer";
-import ExtendedForeCast from "./Favorites";
+import ExtendedForeCast from "./ExtendedForeCast";
+import FavoriteCity from "./FavoriteCity";
 
 const WeatherSearch = () => {
   const methods = useForm();
@@ -29,14 +30,17 @@ const WeatherSearch = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const cityLatLong = await getCityLatitudeLongitude({
-        cityName: data.search  || "kathmandu",
+        cityName: data.search || "kathmandu",
       });
 
       if (cityLatLong && cityLatLong.length < 1) {
-        console.log("No city with this name found");
+        toast.error("No city with this name found");
         return;
       }
 
+      if (cityLatLong) {
+        methods.reset();
+      }
       const { lat, lon } = cityLatLong[0];
       const [currentWeatherData, foreCastData] = await Promise.all([
         getCityCurrentWeatherData({ lat, lon }),
@@ -51,7 +55,8 @@ const WeatherSearch = () => {
   };
 
   useEffect(() => {
-    onSubmit({ search: "kathmandu" }); 
+    onSubmit({ search: "kathmandu" });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -68,7 +73,7 @@ const WeatherSearch = () => {
         <CurrentWeather currentWeatherData={currentWeatherData} />
         <ExtendedForeCast weatherForeCastData={weatherForeCastData} />
       </div>
-      <ExtendedWeatherForecast />
+      <FavoriteCity />
     </div>
   );
 };

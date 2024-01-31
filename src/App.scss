@@ -7,7 +7,7 @@ body {
 }
 
 .main-body {
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -45,16 +45,17 @@ body {
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 20px;
 
-  .wrapper-inside{
-    width: 70%;
+  .wrapper-inside {
+    width: 100%;
     display: flex;
     flex-direction: column;
+
     gap: 20px;
   }
 }
-
 
 .search-main {
   display: flex;
@@ -79,11 +80,22 @@ body {
     border: none;
     height: 40px;
     border-radius: 20px;
+    background: none !important;
+    
+  }
+
+  .search-input input:focus {
+    background: none;
+  }
+
+  .search-input input:-internal-autofill-selected {
+    background-color: -internal-light-dark(
+      rgb(249, 251, 253),
+      rgba(242, 244, 249, 0.906)
+    ) !important;
     background: none;
   }
 }
-
-
 
 .current-weather-wrapper {
   display: flex;
@@ -105,6 +117,8 @@ body {
 
     .icon {
       color: #a0a8ad;
+
+      
     }
   }
 
@@ -226,7 +240,211 @@ body {
   }
 }
 
+.favorites-cities {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+
+  .title {
+    color: #a0a8ad;
+    font-size: medium;
+    font-weight: 600;
+  }
+
+  .favorites-city-wrapper-outside {
+    display: flex;
+    flex-direction: column;
+    .favorites-city-wrapper-main {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 25px 0;
+
+      .favorites-city-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        gap: 5px;
+        padding: 0 25px;
+
+        .favorites-city {
+          font-size: large;
+          color: #647ba7;
+          font-weight: 600;
+        }
+        .del-icon {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+          color: #647ba7;
+          cursor: pointer;
+          font-size: small;
+
+          &:hover {
+            color: #000;
+          }
+        }
+
+        .favorites-city-weather-icon {
+          font-size: 40px;
+          color: #bbdefb;
+        }
+
+        .favorites-city-weather-condition {
+          color: #4c82c0;
+        }
+
+        .favorites-city-degree {
+          color: #a6acba;
+        }
+      }
+    }
+  }
+}
+
 .icon-small {
   color: #a0a8ad;
   font-size: x-large;
+}
+
+@media (max-width: 800px) {
+  .main-body {
+    width: 90%;
+  }
+  .wrapper-outside {
+    flex-direction: column;
+  }
+  .wrapper-outside > * {
+    margin-bottom: 20px;
+  }
+
+  .current-weather-wrapper {
+    .current-weather-header {
+      padding: 10px 20px;
+    }
+
+    .current-weather-wrapper-inside {
+      padding: 20px 20px;
+
+      .current-weather-main-details {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .city {
+          font-size: small;
+        }
+
+        .weather-icon-details {
+          .weather {
+            .weather-main-icon {
+              font-size: 30px;
+              padding-top: 5px;
+            }
+
+            .degree {
+              font-size: 30px;
+            }
+          }
+
+          .weather-condition {
+            font-size: small;
+          }
+        }
+      }
+
+      .current-weather-small-details {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .weather-details {
+          display: flex;
+          gap: 10px;
+        }
+
+        .title {
+          font-size: small;
+        }
+
+        .subtitle {
+          font-size: small;
+        }
+      }
+    }
+  }
+
+  .favorites {
+    .city-wrapper-main {
+      display: flex;
+      padding: 25px 5px;
+      .city-wrapper {
+        gap: 5px;
+        .city {
+          font-size: small;
+        }
+
+        .city-weather-icon {
+          font-size: 30px;
+        }
+
+        .city-weather-condition {
+          font-size: small;
+        }
+
+        .degree {
+          font-size: x-small;
+        }
+      }
+    }
+  }
+
+  .favorites-cities {
+    width: 100%;
+    padding: 10px 0;
+
+    .title {
+      margin-left: 20px;
+    }
+
+    .favorites-city-wrapper-outside {
+      flex-direction: row;
+
+      .favorites-city-wrapper-main {
+        .favorites-city-wrapper {
+          justify-content: start;
+          .favorites-city {
+            font-size: small;
+          }
+          .del-icon {
+            top: 5px;
+            right: 10px;
+            font-size: x-small;
+          }
+          .favorites-city-weather-icon {
+            font-size: 30px;
+          }
+          .favorites-city-weather-condition {
+            font-size: small;
+          }
+
+          .favorites-city-degree {
+            font-size: x-small;
+          }
+        }
+      }
+    }
+  }
+
+  .icon-small {
+    color: #a0a8ad;
+    font-size: medium;
+  }
 }

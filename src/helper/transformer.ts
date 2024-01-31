@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { formatDate } from "../utils/data";
+import { formatDate } from "../utils/date";
 
 export const formatForeCastData = (dataArray: [any]) => {
   const uniqueWeatherDates = [] as any;

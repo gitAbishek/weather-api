@@ -2,7 +2,11 @@ import { FaHeart } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
 import { WiStrongWind } from "react-icons/wi";
 import { WiBarometer } from "react-icons/wi";
+import { toast } from "react-toastify";
+import { WiCloud, WiDaySunny } from "react-icons/wi";
 import { kelvinToCelsius } from "../../helper/kelvinToCelsius";
+import { addCityToFavorite } from "../../helper/storage";
+import { useContextStore } from "../../context/context.consumer";
 
 export interface ExtendedWeatherDataProps {
   currentWeatherData: {
@@ -14,10 +18,15 @@ export interface ExtendedWeatherDataProps {
     };
     weather: {
       description: string;
+      main: string;
     }[];
     wind: {
       speed: number;
     };
+    coord:{
+      lat: number;
+      lon: number;
+    }
   };
 }
 
@@ -26,13 +35,20 @@ const CurrentWeather = ({ currentWeatherData }: ExtendedWeatherDataProps) => {
     ? kelvinToCelsius(currentWeatherData?.main?.temp)
     : null;
 
+  const {setIsAdded} = useContextStore();
+
+  const handleAddFavorite = () => {
+    const fav = addCityToFavorite(currentWeatherData.coord)
+    toast.success(fav.msg);
+    setIsAdded(true);
+  }
 
   return (
     <div className="current-weather-wrapper">
       <div className="current-weather-header">
         <div className="title">Current Weather</div>
         <div className="icon">
-          <FaHeart />
+          <FaHeart onClick={handleAddFavorite} />
         </div>
       </div>
 
@@ -44,7 +60,7 @@ const CurrentWeather = ({ currentWeatherData }: ExtendedWeatherDataProps) => {
             <div className="weather-icon-details">
               <div className="weather">
                 <div className="weather-main-icon">
-                  <WiHumidity />
+                  {currentWeatherData?.weather[0]?.main === "Clouds" ? <WiCloud /> : <WiDaySunny />}
                 </div>
                 <div className="degree">{temperature?.toFixed(2)}&deg;</div>
               </div>
